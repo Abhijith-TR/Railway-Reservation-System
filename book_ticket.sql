@@ -24,10 +24,15 @@ $$
       WHERE dep_date = %L;
     ', train_number, depdate
     ) INTO num_left, total_seats;
-
+    
     start_seat := total_seats - num_left +1;
 
-    IF num_left < arr_len THEN
+
+    IF num_left IS NULL THEN
+
+      RAISE EXCEPTION 'No train on this date';
+    
+    ELSIF num_left < arr_len THEN
 
       RAISE EXCEPTION 'Not enough seats left';
 
@@ -64,5 +69,10 @@ $$
     -- RAISE NOTICE '% \n %',names[1], names[2];
 
     RAISE NOTICE 'Booked tickets please check';
+
+    EXCEPTION 
+	    WHEN undefined_table THEN 
+	      RAISE EXCEPTION 'No such trains';
+
   END
 $$ LANGUAGE plpgsql;
