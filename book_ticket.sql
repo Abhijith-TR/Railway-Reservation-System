@@ -1,13 +1,13 @@
 -- Function to book tickets
 
-CREATE OR REPLACE PROCEDURE book_tickets (
+CREATE OR REPLACE FUNCTION book_tickets (
   train_number VARCHAR(5),
   depdate DATE,
   preference CHAR(2),
   names text[],
   ages integer[],
   genders CHAR(1)[]
-) AS
+) RETURNS TEXT AS
 $$
   DECLARE
 
@@ -16,7 +16,8 @@ $$
     total_seats INTEGER := 0;
     start_seat INTEGER := 0;
     all_values TEXT := '';
-  
+    pnr TEXT := '';
+
   BEGIN
     EXECUTE format(
     '
@@ -61,18 +62,22 @@ $$
       );
     END LOOP;
 
+    pnr = preference || train_number || '-' || depdate || '-' || start_seat;
+
     EXECUTE format(
       '
         INSERT INTO "%s-%s" VALUES %s;
       ', train_number, depdate, all_values 
     );
     -- RAISE NOTICE '% \n %',names[1], names[2];
+    -- RAISE NOTICE 'Booked Ticket, PNR: %', pnr;
 
-    RAISE NOTICE 'Booked tickets please check';
+    return pnr;
 
     EXCEPTION 
 	    WHEN undefined_table THEN 
 	      RAISE EXCEPTION 'No such trains';
+
 
   END
 $$ LANGUAGE plpgsql;
