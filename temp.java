@@ -1,10 +1,12 @@
 // package server_files;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Date;
+import java.sql.*;
+// import java.sql.CallableStatement;
+// import java.sql.Connection;
+// import java.sql.DriverManager;
+// import java.sql.ResultSet;
+// import java.sql.Statement;
+// import java.sql.Date;
 import java.util.Arrays;
 
 public class temp {
@@ -47,12 +49,8 @@ public class temp {
             stmt.executeUpdate("commit;");
             return pnr;
         } catch (Exception e) {
-            // System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            // System.exit(0);
-            // String error = e.get
             return e.getMessage();
         }
-        // return rs;
     }
 
     public static String bookTickets(String trainNo, String date, String pref, String[] names, Integer[] ages, Character[] genders) {
@@ -71,31 +69,31 @@ public class temp {
         Connection conn = null;
         Statement stmt = null;
 
-        String[] names = { "Marty", "Emmett" };
-        Integer[] ages = { 20, 22 };
-        Character[] genders = { 'M', 'M' };
+        String[] names = new String[] { "Marty", "Emmett" };
+        Integer[] ages = new Integer[] { 20, 22 };
+        String[] genders = new String[] { "M", "M" };
         String d = "2022-12-12";
-        // String query = insertTrain("1115");
-        // String query2 = insertTrain("1116");
-        String query = bookTickets("111", d, "AC", names, ages, genders);
-
-        // System.out.println(query);
 
         try {
             Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/train_system",
-                    "postgres", "admin");
+                "jdbc:postgresql://localhost:5432/train_system",
+                "postgres", "admin");
+            
+            CallableStatement cstmt = conn.prepareCall("{call book_tickets(?, ?, ?, ?, ?, ?)}");
+            cstmt.setString(1, "111");
+            cstmt.setDate(2, java.sql.Date.valueOf(d));
+            cstmt.setString(3, "AC");
+            cstmt.setArray(4, conn.createArrayOf("text", names));
+            cstmt.setArray(5, conn.createArrayOf("INTEGER", ages));
+            cstmt.setArray(6, conn.createArrayOf("text", genders));
+            cstmt.execute();
 
-            stmt = conn.createStatement();
-            String sql = query;
+            // stmt = conn.createStatement();
 
-            long startTime = System.nanoTime();
-            String pnr = bookRSTickets(stmt, "111", d, "AC", names, ages, genders);
-            long endTime = System.nanoTime();
-            System.out.println(endTime - startTime);
-            System.out.println(pnr);
-            // conn.commit();
+            // String pnr = bookRSTickets(stmt, "111", d, "AC", names, ages, genders);
+
+            // System.out.println(pnr);
             stmt.close();
             conn.close();
 
@@ -103,6 +101,5 @@ public class temp {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        // System.out.println("Opened database successfully");
     }
 }
