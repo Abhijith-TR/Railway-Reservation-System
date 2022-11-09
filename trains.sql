@@ -5,7 +5,8 @@ CREATE TABLE trains (
 
 -- Trigger to create a new table for each train that is inserted into the trains table 
 
-CREATE OR REPLACE PROCEDURE add_train(train_number VARCHAR(5))
+CREATE OR REPLACE FUNCTION add_train(train_number VARCHAR(5))
+RETURNS VOID
 AS $$
   DECLARE
   BEGIN
@@ -14,6 +15,10 @@ AS $$
         INSERT INTO trains values (%L);
       ', train_number
     );
+
+    EXCEPTION
+      WHEN unique_violation THEN
+        RAISE EXCEPTION 'Train already exists';
   END
 $$ LANGUAGE plpgsql;
 
@@ -36,6 +41,9 @@ RETURNS TRIGGER AS $$
     ', TG_TABLE_NAME::text || '-' || NEW.dep_date);
 
     return NEW;
+    EXCEPTION
+      WHEN unique_violation THEN
+        RAISE EXCEPTION 'Train already exists';
   END
 $$ LANGUAGE plpgsql;
 
@@ -63,6 +71,9 @@ RETURNS TRIGGER AS $$
     ');
 
     return NEW;
+    EXCEPTION
+      WHEN OTHERS THEN
+        RAISE EXCEPTION 'Train already exists';
   END
 $$ LANGUAGE plpgsql;
 

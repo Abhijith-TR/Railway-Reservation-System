@@ -1,22 +1,22 @@
 -- Function to book tickets
 
 CREATE OR REPLACE FUNCTION book_tickets (
-  train_number VARCHAR(5),
-  depdate DATE,
-  preference CHAR(2),
-  names text[],
-  ages integer[],
-  genders CHAR(1)[]
-) RETURNS TEXT AS
-$$
+  IN train_number  VARCHAR(5),
+  IN depdate       DATE,
+  IN preference    CHAR(2),
+  IN names         TEXT[],
+  IN ages          INTEGER[],
+  IN genders       CHAR(1)[],
+  OUT result       TEXT
+) AS $$
   DECLARE
 
     arr_len INTEGER := array_length(names, 1);
     num_left INTEGER := 0;
     total_seats INTEGER := 0;
     start_seat INTEGER := 0;
+    mod INTEGER := 0;
     all_values TEXT := '';
-    pnr TEXT := '';
 
   BEGIN
     EXECUTE format(
@@ -26,15 +26,15 @@ $$
     ', train_number, depdate
     ) INTO num_left, total_seats;
     
-    start_seat := total_seats - num_left +1;
+    start_seat := total_seats - num_left;
 
 
     IF num_left IS NULL THEN
-
+      result := 'No such train'; 
       RAISE EXCEPTION 'No train on this date';
-    
-    ELSIF num_left < arr_len THEN
 
+    ELSIF num_left < arr_len THEN      
+      result := 'Failed not enough seats'; 
       RAISE EXCEPTION 'Not enough seats left';
 
     ELSE 
@@ -46,23 +46,23 @@ $$
 
     END IF;
     
+    IF preference = 'AC' THEN
+      mod := 18;
+    ELSE
+      mod := 24;
+    END IF;
+
     FOR ind IN 1..arr_len
     LOOP 
-      IF all_values <> '' THEN all_values := all_values || ',';
+      IF all_values <> '' THEN all_values := all_values || ',' || E'\n';
       END IF;
       all_values := all_values || format (
-        '(
-            ''%s%s-%s-%s'',
-            %L, %L,
-            %s, %L
-          )
-        ', preference, train_number, depdate, start_seat, 
-        start_seat+ind-1, names[ind],
+        '(''%s%s-%s-%s'',''%s-%s'',%L, %s, %L)', 
+        preference, train_number, depdate, start_seat+1, 
+        ((start_seat+ind-1) / mod)+1, (start_seat+ind-1) % mod+1, names[ind],
         ages[ind], genders[ind]
       );
     END LOOP;
-
-    pnr = preference || train_number || '-' || depdate || '-' || start_seat;
 
     EXECUTE format(
       '
@@ -72,11 +72,13 @@ $$
     -- RAISE NOTICE '% \n %',names[1], names[2];
     -- RAISE NOTICE 'Booked Ticket, PNR: %', pnr;
 
-    return pnr;
+    result := all_values;
 
     EXCEPTION 
 	    WHEN undefined_table THEN 
+        result := 'No such train'; 
 	      RAISE EXCEPTION 'No such trains';
+        RETURN;
 
 
   END

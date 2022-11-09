@@ -1,11 +1,12 @@
 -- Function to insert trains into system
 
-CREATE OR REPLACE PROCEDURE release_train(
+CREATE OR REPLACE FUNCTION release_train(
   train_number VARCHAR(5), 
   dep_date DATE, 
   ac_coaches integer, 
-  sl_coaches integer) AS
-$$
+  sl_coaches integer
+) RETURNS VOID AS
+$$ 
   DECLARE
 
   BEGIN
