@@ -16,9 +16,20 @@ CREATE OR REPLACE FUNCTION book_tickets (
     total_seats INTEGER := 0;
     start_seat INTEGER := 0;
     mod INTEGER := 0;
+    seat_types INTEGER := 0;
     all_values TEXT := '';
-
+    ac_seat_names TEXT[] := '{ "SU", "LB", "LB", "UB", "UB", "SL" }';
+    sl_seat_names TEXT[] := '{ "SU", "LB", "MB", "UB", "LB", "MB", "UB", "SL" }';
+    pref_seat_names TEXT[];
   BEGIN
+    IF preference = 'AC' THEN
+      pref_seat_names := ac_seat_names;
+      seat_types := 6;
+    ELSE
+      pref_seat_names := sl_seat_names;
+      seat_types := 8;
+    END IF;
+
     EXECUTE format(
     '
       SELECT '||preference||'_seats_left, '||preference||'_seats_total FROM %I 
@@ -27,7 +38,6 @@ CREATE OR REPLACE FUNCTION book_tickets (
     ) INTO num_left, total_seats;
     
     start_seat := total_seats - num_left;
-
 
     IF num_left IS NULL THEN
       result := 'No such train'; 
@@ -57,11 +67,13 @@ CREATE OR REPLACE FUNCTION book_tickets (
       IF all_values <> '' THEN all_values := all_values || ',' || E'\n';
       END IF;
       all_values := all_values || format (
-        '(''%s%s-%s-%s'',''%s-%s'',%L, %s, %L)', 
-        preference, train_number, depdate, start_seat+1, 
-        ((start_seat+ind-1) / mod)+1, (start_seat+ind-1) % mod+1, names[ind],
-        ages[ind], genders[ind]
+        '(''%s%s-%s-%s'',''%s-%s'',%L, %s, %L, ''%s'')', 
+        preference, train_number, depdate, start_seat+1,
+        LEFT(preference, 1) || ((start_seat+ind-1) / mod)+1, (start_seat+ind-1) % mod+1, names[ind],
+        ages[ind], genders[ind], pref_seat_names[((start_seat+ind-1) % mod+1) % seat_types + 1]
       );
+      raise notice '% %', ((start_seat+ind-1) % mod+1), ((start_seat+ind-1) % mod+1) % seat_types + 1;
+      raise notice '%', pref_seat_names[((start_seat+ind-1) % mod+1) % seat_types + 1];
     END LOOP;
 
     EXECUTE format(

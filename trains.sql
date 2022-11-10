@@ -36,7 +36,8 @@ RETURNS TRIGGER AS $$
         seat_number VARCHAR(10),
         passenger_name VARCHAR(500), 
         age INTEGER,
-        gender VARCHAR(2)
+        gender VARCHAR(2),
+        berth CHAR(2)
       )
     ', TG_TABLE_NAME::text || '-' || NEW.dep_date);
 
