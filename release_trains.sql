@@ -16,7 +16,6 @@ $$
       VALUES(%L, %L, %L, %L, %L);
     ', train_number, dep_date, ac_coaches * 18, sl_coaches * 24, ac_coaches * 18, sl_coaches*24);
 
-
     EXCEPTION 
 	    WHEN undefined_table THEN 
 	      RAISE EXCEPTION 'Train not found';
