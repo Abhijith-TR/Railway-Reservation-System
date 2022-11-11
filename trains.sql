@@ -39,7 +39,7 @@ RETURNS TRIGGER AS $$
         gender VARCHAR(2),
         berth CHAR(2)
       )
-    ', TG_TABLE_NAME::text || '-' || NEW.dep_date);
+    ', LEFT(TG_TABLE_NAME::text, 3) || '-' || NEW.dep_date);
 
     return NEW;
     EXCEPTION
@@ -57,16 +57,22 @@ RETURNS TRIGGER AS $$
       CREATE TABLE if not exists %I (
         dep_date date PRIMARY KEY,
         ac_seats_total INTEGER,
+        ac_seats_left INTEGER
+      )
+    ', NEW.train_number || '-ac');
+
+    EXECUTE format('
+      CREATE TABLE if not exists %I (
+        dep_date date PRIMARY KEY,
         sl_seats_total INTEGER,
-        ac_seats_left INTEGER,
         sl_seats_left INTEGER
       )
-    ', NEW.train_number);
+    ', NEW.train_number || '-sl');
 
     EXECUTE format('
         CREATE TRIGGER insert_into_specific_train
         BEFORE INSERT 
-        ON "' || NEW.train_number ||'"
+        ON "' || NEW.train_number || '-sl' ||'"
         FOR EACH ROW
         EXECUTE PROCEDURE create_train_instance_table();
     ');

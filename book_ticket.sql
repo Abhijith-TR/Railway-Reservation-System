@@ -34,7 +34,7 @@ CREATE OR REPLACE FUNCTION book_tickets (
     '
       SELECT '||preference||'_seats_left, '||preference||'_seats_total FROM %I 
       WHERE dep_date = %L;
-    ', train_number, depdate
+    ', train_number || '-' || LOWER(preference), depdate
     ) INTO num_left, total_seats;
     
     start_seat := total_seats - num_left;
@@ -52,7 +52,7 @@ CREATE OR REPLACE FUNCTION book_tickets (
       EXECUTE format('
         UPDATE %I SET %s_seats_left = %s_seats_left -%s 
         WHERE dep_date = %L;
-      ', train_number, preference, preference, arr_len, depdate);
+      ', train_number || '-' || LOWER(preference), preference, preference, arr_len, depdate);
 
     END IF;
     
@@ -72,8 +72,6 @@ CREATE OR REPLACE FUNCTION book_tickets (
         LEFT(preference, 1) || ((start_seat+ind-1) / mod)+1, (start_seat+ind-1) % mod+1, names[ind],
         ages[ind], genders[ind], pref_seat_names[((start_seat+ind-1) % mod+1) % seat_types + 1]
       );
-      raise notice '% %', ((start_seat+ind-1) % mod+1), ((start_seat+ind-1) % mod+1) % seat_types + 1;
-      raise notice '%', pref_seat_names[((start_seat+ind-1) % mod+1) % seat_types + 1];
     END LOOP;
 
     EXECUTE format(
