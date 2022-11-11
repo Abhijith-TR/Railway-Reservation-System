@@ -5,8 +5,6 @@ CREATE OR REPLACE FUNCTION book_tickets (
   IN depdate       DATE,
   IN preference    CHAR(2),
   IN names         TEXT[],
-  IN ages          INTEGER[],
-  IN genders       CHAR(1)[],
   OUT result       TEXT
 ) AS $$
   DECLARE
@@ -67,10 +65,10 @@ CREATE OR REPLACE FUNCTION book_tickets (
       IF all_values <> '' THEN all_values := all_values || ',' || E'\n';
       END IF;
       all_values := all_values || format (
-        '(''%s%s-%s-%s'',''%s-%s'',%L, %s, %L, ''%s'')', 
+        '(''%s%s-%s-%s'',''%s-%s'',%L, ''%s'')', 
         preference, train_number, depdate, start_seat+1,
         LEFT(preference, 1) || ((start_seat+ind-1) / mod)+1, (start_seat+ind-1) % mod+1, names[ind],
-        ages[ind], genders[ind], pref_seat_names[((start_seat+ind-1) % mod+1) % seat_types + 1]
+        pref_seat_names[((start_seat+ind-1) % mod+1) % seat_types + 1]
       );
     END LOOP;
 

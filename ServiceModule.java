@@ -14,33 +14,33 @@ import java.util.Scanner;
 
 class QueryRunner implements Runnable {
 
+    // Declare socket for client access
+    protected Socket socketConnection;
+
     public static String bookTickets(
             Connection conn,
             String trainNo,
             String date,
             String pref,
-            String[] names,
-            Integer[] ages,
-            Character[] genders) {
+            String[] names
+        ) {
         try {
             conn.beginRequest();
 
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("begin;");
-            stmt.executeUpdate("set transaction isolation level serializable;");
+            // stmt.executeUpdate("begin;");
+            // stmt.executeUpdate("set transaction isolation level serializable;");
 
-            CallableStatement cstmt = conn.prepareCall("{call book_tickets(?, ?, ?, ?, ?, ?, ?)}");
+            CallableStatement cstmt = conn.prepareCall("{call book_tickets(?, ?, ?, ?, ?)}");
 
             cstmt.setString(1, trainNo);
             cstmt.setDate(2, java.sql.Date.valueOf(date));
             cstmt.setString(3, pref);
             cstmt.setArray(4, conn.createArrayOf("text", names));
-            cstmt.setArray(5, conn.createArrayOf("INTEGER", ages));
-            cstmt.setArray(6, conn.createArrayOf("text", genders));
-            cstmt.registerOutParameter(7, java.sql.Types.VARCHAR);
+            cstmt.registerOutParameter(5, java.sql.Types.VARCHAR);
 
             cstmt.executeUpdate();
-            stmt.executeUpdate("commit;");
+            // stmt.executeUpdate("commit;");
 
             String result = cstmt.getString(7);
 
@@ -52,9 +52,6 @@ class QueryRunner implements Runnable {
 
         }
     }
-
-    // Declare socket for client access
-    protected Socket socketConnection;
 
     public QueryRunner(Socket clientSocket) {
         this.socketConnection = clientSocket;
@@ -70,31 +67,58 @@ class QueryRunner implements Runnable {
             PrintWriter printWriter = new PrintWriter(bufferedOutput, true);
             String clientCommand = "";
             String responseQuery = "";
+            Connection conn = DriverManager.getConnection(
+                "jdbc:postgresql://localhost:5432/train_system",
+                "postgres", "2486"
+            );
+
+            conn.setAutoCommit(true);
+            conn.setTransactionIsolation(8);
+
+            String[] params; 
+            String trainNo; 
+            String date; 
+            String preference; 
+            Integer numberOfPassengers;
             // Read client query from the socket endpoint
             clientCommand = bufferedInput.readLine();
             while (!clientCommand.equals("#")) {
+                
+                System.out.println("Recieved data <" + clientCommand + "> from client : " + socketConnection.getRemoteSocketAddress().toString());
+                params = clientCommand.split("\\s+");
+                numberOfPassengers = Integer.valueOf(params[0]);
+                String[] names = new String[numberOfPassengers]; 
 
-                System.out.println("Recieved data <" + clientCommand + "> from client : "
-                        + socketConnection.getRemoteSocketAddress().toString());
+                for (int i=0; i<numberOfPassengers; i++){
+                    names[i] = params[i+1].substring(0, params[i+1].length()-1);
+                }
 
+                trainNo = params[numberOfPassengers+1];
+                date = params[numberOfPassengers+2];
+                preference = params[numberOfPassengers+3];
+
+                System.out.println(trainNo.length());
+                System.out.println(date);
+                System.out.println(names.toString());
+
+                responseQuery = bookTickets(conn, trainNo, date, preference, names);
                 /*******************************************
-                 * Your DB code goes here
-                 ********************************************/
+                ********************************************/
 
                 // Dummy response send to client
-                responseQuery = "******* Dummy result ******";
                 // Sending data back to the client
                 printWriter.println(responseQuery);
                 // Read next client query
                 clientCommand = bufferedInput.readLine();
             }
+            conn.close();
             inputStream.close();
             bufferedInput.close();
             outputStream.close();
             bufferedOutput.close();
             printWriter.close();
             socketConnection.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             return;
         }
     }
@@ -108,7 +132,7 @@ public class ServiceModule {
     static int serverPort = 7008;
     // Max no of parallel requests the server can process
     static int numServerCores = 5;
-    
+
     public static String addTrain(Connection conn, String trainNo) {
         try {
             conn.beginRequest();
@@ -155,12 +179,11 @@ public class ServiceModule {
         }
     }
 
-    public static void adminTask(String filename){
+    public static void adminTask(String filename) {
         Connection adminConn = null;
         File input = null;
         Scanner inputScanner = null;
 
-        
         try {
             input = new File(filename);
             inputScanner = new Scanner(input);
@@ -174,12 +197,13 @@ public class ServiceModule {
             Integer slCoaches = 0;
 
             adminConn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "2486");
-                
-            while (inputScanner.hasNextLine()){
+                    "jdbc:postgresql://localhost:5432/train_system",
+                    "postgres", "2486");
+
+            while (inputScanner.hasNextLine()) {
                 query = inputScanner.nextLine();
-                if (query.equals("#")) break;
+                if (query.equals("#"))
+                    break;
                 params = query.split("\\s+");
                 trainNo = params[0];
                 Date = params[1];
@@ -188,10 +212,10 @@ public class ServiceModule {
                 System.out.println(releaseTrain(adminConn, trainNo, Date, acCoaches, slCoaches));
                 System.out.println(String.format("Inserted train: %s", trainNo));
             }
-            
+
             inputScanner.close();
             adminConn.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             System.exit(0);
         }
@@ -200,7 +224,7 @@ public class ServiceModule {
 
     // ------------ Main----------------------
     public static void main(String[] args) throws IOException {
-        
+
         // Creating a thread pool
 
         adminTask("./Input/admin_input.txt");

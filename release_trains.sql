@@ -27,7 +27,16 @@ $$
         EXECUTE format('
           SELECT add_train(''%s'')
         ', train_number);
-	      RAISE EXCEPTION 'Train not found';
+        
+        EXECUTE format('
+          INSERT INTO %I
+          VALUES(%L, %L, %L);
+        ', train_number || '-ac', dep_date, ac_coaches * 18, ac_coaches * 18);
+
+        EXECUTE format('
+          INSERT INTO %I
+          VALUES(%L, %L, %L);
+        ', train_number || '-sl', dep_date, sl_coaches * 24, sl_coaches*24);
 
 	    WHEN unique_violation THEN 
 	      RAISE EXCEPTION 'Train already in booking system';

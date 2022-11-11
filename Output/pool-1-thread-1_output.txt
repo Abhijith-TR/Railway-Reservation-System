@@ -1,3 +1,6 @@
-******* Dummy result ******
-******* Dummy result ******
-******* Dummy result ******
+ERROR: No train on this date
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 34 at RAISE
+ERROR: No train on this date
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 34 at RAISE
+ERROR: No train on this date
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 34 at RAISE
