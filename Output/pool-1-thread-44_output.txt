@@ -1,0 +1,183 @@
+ERROR: Not enough seats left
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 38 at RAISE
+('SL22517-2022-11-01-23051','S961-11','WkZ', 'UB'),
+('SL22517-2022-11-01-23051','S961-12','DwmXRaAmzFe', 'LB'),
+('SL22517-2022-11-01-23051','S961-13','gWBAMFgsYFtpx', 'MB'),
+('SL22517-2022-11-01-23051','S961-14','Gj', 'UB'),
+('SL22517-2022-11-01-23051','S961-15','w', 'SL'),
+('SL22517-2022-11-01-23051','S961-16','ZqcCSmKqW', 'SU')
+ERROR: Not enough seats left
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 38 at RAISE
+ERROR: Not enough seats left
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 38 at RAISE
+ERROR: Not enough seats left
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 38 at RAISE
+ERROR: Not enough seats left
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 38 at RAISE
+('SL22517-2022-11-01-23057','S961-17','YnLLNKSP', 'LB'),
+('SL22517-2022-11-01-23057','S961-18','lPWzUkjKf', 'MB'),
+('SL22517-2022-11-01-23057','S961-19','Vg', 'UB'),
+('SL22517-2022-11-01-23057','S961-20','fqTg', 'LB'),
+('SL22517-2022-11-01-23057','S961-21','pxDeNejvMT', 'MB'),
+('SL22517-2022-11-01-23057','S961-22','TFXrRcXN', 'UB'),
+('SL22517-2022-11-01-23057','S961-23','JwlWpRdnYofSMPNX', 'SL'),
+('SL22517-2022-11-01-23057','S961-24','mKWtuxQ', 'SU'),
+('SL22517-2022-11-01-23057','S962-1','UPZxsWCgBG', 'LB'),
+('SL22517-2022-11-01-23057','S962-2','JupmIbVnrMybvH', 'MB'),
+('SL22517-2022-11-01-23057','S962-3','vBxcQHLxgcmG', 'UB'),
+('SL22517-2022-11-01-23057','S962-4','UrSc', 'LB'),
+('SL22517-2022-11-01-23057','S962-5','CfD', 'MB'),
+('SL22517-2022-11-01-23057','S962-6','QToeci', 'UB'),
+('SL22517-2022-11-01-23057','S962-7','Vtvd', 'SL'),
+('SL22517-2022-11-01-23057','S962-8','bGKwcUzDVfFApj', 'SU'),
+('SL22517-2022-11-01-23057','S962-9','LmjGxTKGMJsvJBoo', 'LB'),
+('SL22517-2022-11-01-23057','S962-10','h', 'MB')
+ERROR: Not enough seats left
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 38 at RAISE
+ERROR: Not enough seats left
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 38 at RAISE
+ERROR: Not enough seats left
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 38 at RAISE
+('SL04652-2022-11-01-22532','S939-20','QPxfjJDppi', 'LB'),
+('SL04652-2022-11-01-22532','S939-21','ZCogBeXWPnpqCfl', 'MB'),
+('SL04652-2022-11-01-22532','S939-22','PddbdGKvMGHAFYFB', 'UB'),
+('SL04652-2022-11-01-22532','S939-23','uHrWzb', 'SL'),
+('SL04652-2022-11-01-22532','S939-24','ZupJ', 'SU'),
+('SL04652-2022-11-01-22532','S940-1','afcA', 'LB'),
+('SL04652-2022-11-01-22532','S940-2','XMVpPlGTEKwMGnfg', 'MB'),
+('SL04652-2022-11-01-22532','S940-3','MhcbQ', 'UB'),
+('SL04652-2022-11-01-22532','S940-4','ciL', 'LB'),
+('SL04652-2022-11-01-22532','S940-5','AbjiXowrItR', 'MB'),
+('SL04652-2022-11-01-22532','S940-6','Fag', 'UB'),
+('SL04652-2022-11-01-22532','S940-7','PMGSiAiHjL', 'SL'),
+('SL04652-2022-11-01-22532','S940-8','CTbDptR', 'SU')
+('SL22517-2022-11-01-23075','S962-11','TxNSyYBCcsxQ', 'UB'),
+('SL22517-2022-11-01-23075','S962-12','HnzDakPpgmCGeZ', 'LB'),
+('SL22517-2022-11-01-23075','S962-13','KTnDTqJqjm', 'MB'),
+('SL22517-2022-11-01-23075','S962-14','BlOwTbWLpoZKHd', 'UB'),
+('SL22517-2022-11-01-23075','S962-15','iDfOUQIchxS', 'SL'),
+('SL22517-2022-11-01-23075','S962-16','lvJoMemfvKXM', 'SU'),
+('SL22517-2022-11-01-23075','S962-17','pG', 'LB'),
+('SL22517-2022-11-01-23075','S962-18','At', 'MB'),
+('SL22517-2022-11-01-23075','S962-19','Oe', 'UB'),
+('SL22517-2022-11-01-23075','S962-20','dIfHU', 'LB'),
+('SL22517-2022-11-01-23075','S962-21','YXpReltPXn', 'MB'),
+('SL22517-2022-11-01-23075','S962-22','AdTJDkTFbIQmxii', 'UB'),
+('SL22517-2022-11-01-23075','S962-23','pNLUSip', 'SL'),
+('SL22517-2022-11-01-23075','S962-24','nOFeWbbrt', 'SU')
+ERROR: Not enough seats left
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 38 at RAISE
+('SL04652-2022-11-01-22545','S940-9','OrRDzZjVxhWiwY', 'LB'),
+('SL04652-2022-11-01-22545','S940-10','BJXJrmiU', 'MB'),
+('SL04652-2022-11-01-22545','S940-11','QPMpOanbtsjRcm', 'UB'),
+('SL04652-2022-11-01-22545','S940-12','mLbCGewpGhLnhX', 'LB'),
+('SL04652-2022-11-01-22545','S940-13','h', 'MB'),
+('SL04652-2022-11-01-22545','S940-14','MyEAZpiFoH', 'UB'),
+('SL04652-2022-11-01-22545','S940-15','Qel', 'SL'),
+('SL04652-2022-11-01-22545','S940-16','PZxXVekj', 'SU'),
+('SL04652-2022-11-01-22545','S940-17','ZPhmQyhjSLOT', 'LB'),
+('SL04652-2022-11-01-22545','S940-18','hRIAMtzCJoOXl', 'MB'),
+('SL04652-2022-11-01-22545','S940-19','cAKvQSXirQVMu', 'UB'),
+('SL04652-2022-11-01-22545','S940-20','s', 'LB'),
+('SL04652-2022-11-01-22545','S940-21','mwrSgkSiFV', 'MB'),
+('SL04652-2022-11-01-22545','S940-22','XGQ', 'UB'),
+('SL04652-2022-11-01-22545','S940-23','HgxohIklrH', 'SL'),
+('SL04652-2022-11-01-22545','S940-24','ynxWjNZcOGUzt', 'SU')
+('SL04652-2022-11-01-22590','S942-6','JRwAGRswrEHA', 'UB'),
+('SL04652-2022-11-01-22590','S942-7','FfZusw', 'SL'),
+('SL04652-2022-11-01-22590','S942-8','DdbBe', 'SU'),
+('SL04652-2022-11-01-22590','S942-9','XlLc', 'LB'),
+('SL04652-2022-11-01-22590','S942-10','VLQfBYsPer', 'MB'),
+('SL04652-2022-11-01-22590','S942-11','qll', 'UB'),
+('SL04652-2022-11-01-22590','S942-12','wTEajCaflBQ', 'LB'),
+('SL04652-2022-11-01-22590','S942-13','bfuKlrAvwVdh', 'MB'),
+('SL04652-2022-11-01-22590','S942-14','krf', 'UB'),
+('SL04652-2022-11-01-22590','S942-15','hakWTbUy', 'SL'),
+('SL04652-2022-11-01-22590','S942-16','BiHAjhbC', 'SU'),
+('SL04652-2022-11-01-22590','S942-17','WCPsDDamh', 'LB'),
+('SL04652-2022-11-01-22590','S942-18','OKQanmiAzxUiUK', 'MB'),
+('SL04652-2022-11-01-22590','S942-19','dZZsMC', 'UB'),
+('SL04652-2022-11-01-22590','S942-20','bzIpQqDKTatyR', 'LB'),
+('SL04652-2022-11-01-22590','S942-21','ukJwd', 'MB'),
+('SL04652-2022-11-01-22590','S942-22','bcEjpNa', 'UB'),
+('SL04652-2022-11-01-22590','S942-23','XLGgKdxeqIyF', 'SL'),
+('SL04652-2022-11-01-22590','S942-24','HPpbX', 'SU'),
+('SL04652-2022-11-01-22590','S943-1','OZsQNacJB', 'LB'),
+('SL04652-2022-11-01-22590','S943-2','fhvwQDvv', 'MB')
+('SL22517-2022-11-01-23123','S964-11','iRBFYQ', 'UB'),
+('SL22517-2022-11-01-23123','S964-12','NxRUPKVgWsQzo', 'LB'),
+('SL22517-2022-11-01-23123','S964-13','nfFbN', 'MB'),
+('SL22517-2022-11-01-23123','S964-14','yVJisDjvmIdDLgI', 'UB'),
+('SL22517-2022-11-01-23123','S964-15','fDtmgMlOKMaRCCT', 'SL'),
+('SL22517-2022-11-01-23123','S964-16','xsas', 'SU'),
+('SL22517-2022-11-01-23123','S964-17','PcogSvMOYYEbpVui', 'LB'),
+('SL22517-2022-11-01-23123','S964-18','xrhiNUiUzwyAlcL', 'MB'),
+('SL22517-2022-11-01-23123','S964-19','EqOqVai', 'UB'),
+('SL22517-2022-11-01-23123','S964-20','J', 'LB'),
+('SL22517-2022-11-01-23123','S964-21','dBVrfNsGZA', 'MB'),
+('SL22517-2022-11-01-23123','S964-22','wMD', 'UB'),
+('SL22517-2022-11-01-23123','S964-23','BxtfVoLcJkBGNu', 'SL'),
+('SL22517-2022-11-01-23123','S964-24','SoQqtgV', 'SU'),
+('SL22517-2022-11-01-23123','S965-1','InyA', 'LB'),
+('SL22517-2022-11-01-23123','S965-2','clYKjWu', 'MB'),
+('SL22517-2022-11-01-23123','S965-3','SzrDbZAVvHRcvq', 'UB'),
+('SL22517-2022-11-01-23123','S965-4','rdtqXycOR', 'LB'),
+('SL22517-2022-11-01-23123','S965-5','cIPhFGe', 'MB'),
+('SL22517-2022-11-01-23123','S965-6','GCAJVYCjYjAzVr', 'UB'),
+('SL22517-2022-11-01-23123','S965-7','xDvVCJSKedokuzR', 'SL'),
+('SL22517-2022-11-01-23123','S965-8','rptMBTQYoFaJAK', 'SU'),
+('SL22517-2022-11-01-23123','S965-9','RoYEHzYj', 'LB'),
+('SL22517-2022-11-01-23123','S965-10','SZFFCjTFCdmjdl', 'MB'),
+('SL22517-2022-11-01-23123','S965-11','TloYQkjea', 'UB'),
+('SL22517-2022-11-01-23123','S965-12','k', 'LB')
+ERROR: Not enough seats left
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 38 at RAISE
+ERROR: Not enough seats left
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 38 at RAISE
+ERROR: Not enough seats left
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 38 at RAISE
+ERROR: Not enough seats left
+  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 38 at RAISE
+('SL22517-2022-11-01-23177','S966-17','yrehybGP', 'LB'),
+('SL22517-2022-11-01-23177','S966-18','ZXPIkE', 'MB'),
+('SL22517-2022-11-01-23177','S966-19','isEveuBQeVdhD', 'UB'),
+('SL22517-2022-11-01-23177','S966-20','oCLcfq', 'LB'),
+('SL22517-2022-11-01-23177','S966-21','efFnErTvcbS', 'MB'),
+('SL22517-2022-11-01-23177','S966-22','GcwHBkPxegcf', 'UB'),
+('SL22517-2022-11-01-23177','S966-23','PDLXI', 'SL'),
+('SL22517-2022-11-01-23177','S966-24','XLlWtyJzLJHJN', 'SU'),
+('SL22517-2022-11-01-23177','S967-1','qJyyklgxTjNsn', 'LB'),
+('SL22517-2022-11-01-23177','S967-2','nXtMQQy', 'MB'),
+('SL22517-2022-11-01-23177','S967-3','MUUX', 'UB')
+('SL04652-2022-11-01-22726','S947-22','o', 'UB'),
+('SL04652-2022-11-01-22726','S947-23','NhvtEL', 'SL'),
+('SL04652-2022-11-01-22726','S947-24','bCce', 'SU'),
+('SL04652-2022-11-01-22726','S948-1','SvonkyearyCVlod', 'LB'),
+('SL04652-2022-11-01-22726','S948-2','LPvSfCpvC', 'MB'),
+('SL04652-2022-11-01-22726','S948-3','MhLdwA', 'UB'),
+('SL04652-2022-11-01-22726','S948-4','LByIApiHtctgWGR', 'LB'),
+('SL04652-2022-11-01-22726','S948-5','nlpCAFRnDUV', 'MB'),
+('SL04652-2022-11-01-22726','S948-6','d', 'UB'),
+('SL04652-2022-11-01-22726','S948-7','JteZOcmJUGfifdpB', 'SL'),
+('SL04652-2022-11-01-22726','S948-8','zzQQFvMjuyQUTAk', 'SU'),
+('SL04652-2022-11-01-22726','S948-9','ZqZKVOaR', 'LB')
+('SL04652-2022-11-01-22738','S948-10','TAVTsHkkYorESi', 'MB'),
+('SL04652-2022-11-01-22738','S948-11','cQDZWHMl', 'UB'),
+('SL04652-2022-11-01-22738','S948-12','OmmuOZjJEZVCLu', 'LB'),
+('SL04652-2022-11-01-22738','S948-13','GOofTewfWI', 'MB'),
+('SL04652-2022-11-01-22738','S948-14','Yzd', 'UB'),
+('SL04652-2022-11-01-22738','S948-15','F', 'SL'),
+('SL04652-2022-11-01-22738','S948-16','K', 'SU'),
+('SL04652-2022-11-01-22738','S948-17','rSNp', 'LB'),
+('SL04652-2022-11-01-22738','S948-18','FfrwdhLF', 'MB'),
+('SL04652-2022-11-01-22738','S948-19','qnuAJUttW', 'UB'),
+('SL04652-2022-11-01-22738','S948-20','mJtDnLKS', 'LB'),
+('SL04652-2022-11-01-22738','S948-21','OZLgMfCPpMSVXYrG', 'MB'),
+('SL04652-2022-11-01-22738','S948-22','hoHydPZv', 'UB'),
+('SL04652-2022-11-01-22738','S948-23','LSweij', 'SL'),
+('SL04652-2022-11-01-22738','S948-24','jmpVouZnzmPVx', 'SU'),
+('SL04652-2022-11-01-22738','S949-1','GGcgCNjRQIQdOg', 'LB'),
+('SL04652-2022-11-01-22738','S949-2','NkFsH', 'MB'),
+('SL04652-2022-11-01-22738','S949-3','qfNSNaWR', 'UB'),
+('SL04652-2022-11-01-22738','S949-4','Dzp', 'LB'),
+('SL04652-2022-11-01-22738','S949-5','jXcImNKscmAeLZT', 'MB')

@@ -92,10 +92,10 @@ public class db_helper {
     public static void main(String[] args) {
         Connection conn = null;
         try {
-                Class.forName("org.postgresql.Driver");
-                conn = DriverManager.getConnection(
-                        "jdbc:postgresql://localhost:5432/train_system",
-                        "postgres", "****");
+            Class.forName("org.postgresql.Driver");
+            conn = DriverManager.getConnection(
+                    "jdbc:postgresql://localhost:5432/train_system",
+                    "postgres", "****");
 
             String[] names = { "Bonnie", "Clyde" };
             Integer[] ages = { 20, 20 };

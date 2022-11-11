@@ -37,7 +37,7 @@ RETURNS TRIGGER AS $$
         passenger_name VARCHAR(500), 
         berth CHAR(2)
       )
-    ', LEFT(TG_TABLE_NAME::text, 3) || '-' || NEW.dep_date);
+    ', SUBSTRING(TG_TABLE_NAME::text, 1, LENGTH(TG_TABLE_NAME::text)-3) || '-' || NEW.dep_date);
 
     return NEW;
     EXCEPTION

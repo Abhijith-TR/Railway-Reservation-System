@@ -38,7 +38,7 @@ CREATE OR REPLACE FUNCTION book_tickets (
     start_seat := total_seats - num_left;
 
     IF num_left IS NULL THEN
-      result := 'No such train'; 
+      result := 'No such train' || ' ' || train_number; 
       RAISE EXCEPTION 'No train on this date';
 
     ELSIF num_left < arr_len THEN      
@@ -82,11 +82,11 @@ CREATE OR REPLACE FUNCTION book_tickets (
 
     result := all_values;
 
-    EXCEPTION 
-	    WHEN undefined_table THEN 
-        result := 'No such train'; 
-	      RAISE EXCEPTION 'No such trains';
-        RETURN;
+    -- EXCEPTION 
+	  --   WHEN undefined_table THEN 
+    --     result := 'No such train'; 
+	  --     RAISE EXCEPTION 'No such trains %', train_number;
+    --     RETURN;
 
 
   END

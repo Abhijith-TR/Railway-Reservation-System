@@ -1,8 +1,50 @@
-ERROR: No train on this date
-  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 34 at RAISE
-ERROR: No train on this date
-  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 34 at RAISE
-ERROR: No train on this date
-  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 34 at RAISE
-ERROR: No train on this date
-  Where: PL/pgSQL function book_tickets(character varying,date,character,text[]) line 34 at RAISE
+('SL22517-2022-11-01-305','S13-17','hDeVtLvlW', 'LB'),
+('SL22517-2022-11-01-305','S13-18','ZlmAvzfsppsFR', 'MB'),
+('SL22517-2022-11-01-305','S13-19','', 'UB')
+('SL22517-2022-11-01-308','S13-20','SYa', 'LB'),
+('SL22517-2022-11-01-308','S13-21','zcpuxW', 'MB'),
+('SL22517-2022-11-01-308','S13-22','bgseZoMGqmltvV', 'UB'),
+('SL22517-2022-11-01-308','S13-23','WohvFfXpNgzv', 'SL')
+('AC22517-2022-11-01-199','A12-1','GXWh', 'LB'),
+('AC22517-2022-11-01-199','A12-2','ypLLKIlqOQGiLN', 'LB'),
+('AC22517-2022-11-01-199','A12-3','LmJaQAwah', 'UB')
+('SL22517-2022-11-01-312','S13-24','cCSwssNSflIUJXx', 'SU'),
+('SL22517-2022-11-01-312','S14-1','SLkGJewhdRPe', 'LB'),
+('SL22517-2022-11-01-312','S14-2','BjFU', 'MB')
+('AC22517-2022-11-01-202','A12-4','HawbtzdZAZI', 'UB'),
+('AC22517-2022-11-01-202','A12-5','doGFAr', 'SL'),
+('AC22517-2022-11-01-202','A12-6','HuWV', 'SU'),
+('AC22517-2022-11-01-202','A12-7','badUYYTdMevz', 'LB'),
+('AC22517-2022-11-01-202','A12-8','MvrcCWi', 'LB'),
+('AC22517-2022-11-01-202','A12-9','wo', 'UB'),
+('AC22517-2022-11-01-202','A12-10','zXZI', 'UB'),
+('AC22517-2022-11-01-202','A12-11','OPO', 'SL'),
+('AC22517-2022-11-01-202','A12-12','DqsvLwfiGIpAXNA', 'SU'),
+('AC22517-2022-11-01-202','A12-13','HtLpQcQzEoeZD', 'LB'),
+('AC22517-2022-11-01-202','A12-14','wyxeHpJRZCLlog', 'LB'),
+('AC22517-2022-11-01-202','A12-15','zs', 'UB'),
+('AC22517-2022-11-01-202','A12-16','NuEJVLmArdCTLtH', 'UB'),
+('AC22517-2022-11-01-202','A12-17','uReqclr', 'SL'),
+('AC22517-2022-11-01-202','A12-18','vud', 'SU'),
+('AC22517-2022-11-01-202','A13-1','PrLLhYaWce', 'LB'),
+('AC22517-2022-11-01-202','A13-2','ET', 'LB'),
+('AC22517-2022-11-01-202','A13-3','bRM', 'UB'),
+('AC22517-2022-11-01-202','A13-4','eNaD', 'UB'),
+('AC22517-2022-11-01-202','A13-5','jWzfmaDJoNTrOmwS', 'SL'),
+('AC22517-2022-11-01-202','A13-6','YcLYCDyzEAlv', 'SU'),
+('AC22517-2022-11-01-202','A13-7','bbXVRqLltQmgWDI', 'LB'),
+('AC22517-2022-11-01-202','A13-8','eDZHNVUf', 'LB'),
+('AC22517-2022-11-01-202','A13-9','AgMGqKUnfInvn', 'UB'),
+('AC22517-2022-11-01-202','A13-10','sDPQAGXL', 'UB'),
+('AC22517-2022-11-01-202','A13-11','sgRAYXW', 'SL'),
+('AC22517-2022-11-01-202','A13-12','JwwhmHCpBD', 'SU'),
+('AC22517-2022-11-01-202','A13-13','MduqQU', 'LB'),
+('AC22517-2022-11-01-202','A13-14','dVNXyETgMIwCu', 'LB'),
+('AC22517-2022-11-01-202','A13-15','ilbMvYKgJbA', 'UB'),
+('AC22517-2022-11-01-202','A13-16','gSEJhLNHskgYaNHz', 'UB'),
+('AC22517-2022-11-01-202','A13-17','zxbJJGANm', 'SL'),
+('AC22517-2022-11-01-202','A13-18','z', 'SU'),
+('AC22517-2022-11-01-202','A14-1','WIQloKz', 'LB'),
+('AC22517-2022-11-01-202','A14-2','vcOXwxQlfhrV', 'LB'),
+('AC22517-2022-11-01-202','A14-3','EOVfxkFgypUY', 'UB'),
+('AC22517-2022-11-01-202','A14-4','BCAVVnIbSKnrXb', 'UB')

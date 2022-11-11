@@ -26,7 +26,7 @@ class QueryRunner implements Runnable {
         ) {
         try {
             conn.beginRequest();
-
+            
             Statement stmt = conn.createStatement();
             // stmt.executeUpdate("begin;");
             // stmt.executeUpdate("set transaction isolation level serializable;");
@@ -38,11 +38,11 @@ class QueryRunner implements Runnable {
             cstmt.setString(3, pref);
             cstmt.setArray(4, conn.createArrayOf("text", names));
             cstmt.registerOutParameter(5, java.sql.Types.VARCHAR);
-
+            
             cstmt.executeUpdate();
             // stmt.executeUpdate("commit;");
-
-            String result = cstmt.getString(7);
+            
+            String result = cstmt.getString(5);
 
             cstmt.close();
             return result;
@@ -69,7 +69,7 @@ class QueryRunner implements Runnable {
             String responseQuery = "";
             Connection conn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "2486"
+                "postgres", "admin"
             );
 
             conn.setAutoCommit(true);
@@ -84,12 +84,11 @@ class QueryRunner implements Runnable {
             clientCommand = bufferedInput.readLine();
             while (!clientCommand.equals("#")) {
                 
-                System.out.println("Recieved data <" + clientCommand + "> from client : " + socketConnection.getRemoteSocketAddress().toString());
+                // System.out.println("Recieved data <" + clientCommand + "> from client : " + socketConnection.getRemoteSocketAddress().toString());
                 params = clientCommand.split("\\s+");
                 numberOfPassengers = Integer.valueOf(params[0]);
                 String[] names = new String[numberOfPassengers]; 
-
-                for (int i=0; i<numberOfPassengers; i++){
+                for (int i=0; i<numberOfPassengers; i++) {
                     names[i] = params[i+1].substring(0, params[i+1].length()-1);
                 }
 
@@ -97,11 +96,12 @@ class QueryRunner implements Runnable {
                 date = params[numberOfPassengers+2];
                 preference = params[numberOfPassengers+3];
 
-                System.out.println(trainNo.length());
-                System.out.println(date);
-                System.out.println(names.toString());
+                // System.out.println(trainNo);
 
-                responseQuery = bookTickets(conn, trainNo, date, preference, names);
+                responseQuery = "serialize";
+                while (responseQuery.contains("serialize")) {
+                    responseQuery = bookTickets(conn, trainNo, date, preference, names);
+                }
                 /*******************************************
                 ********************************************/
 
@@ -131,7 +131,7 @@ public class ServiceModule {
     // Server listens to port
     static int serverPort = 7008;
     // Max no of parallel requests the server can process
-    static int numServerCores = 5;
+    static int numServerCores = 50 ;
 
     public static String addTrain(Connection conn, String trainNo) {
         try {
@@ -198,7 +198,7 @@ public class ServiceModule {
 
             adminConn = DriverManager.getConnection(
                     "jdbc:postgresql://localhost:5432/train_system",
-                    "postgres", "2486");
+                    "postgres", "admin");
 
             while (inputScanner.hasNextLine()) {
                 query = inputScanner.nextLine();
@@ -209,15 +209,15 @@ public class ServiceModule {
                 Date = params[1];
                 acCoaches = Integer.valueOf(params[2]);
                 slCoaches = Integer.valueOf(params[3]);
-                System.out.println(releaseTrain(adminConn, trainNo, Date, acCoaches, slCoaches));
-                System.out.println(String.format("Inserted train: %s", trainNo));
+                // System.out.println(releaseTrain(adminConn, trainNo, Date, acCoaches, slCoaches));
+                // System.out.println(String.format("Inserted train: %s", trainNo));
             }
 
             inputScanner.close();
             adminConn.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.exit(0);
+            // System.out.println(e.getMessage());
+            // System.exit(0);
         }
 
     }
@@ -237,12 +237,12 @@ public class ServiceModule {
 
             // Always-ON server
             while (true) {
-                System.out.println("Listening port : " + serverPort
-                        + "\nWaiting for clients...");
+                // System.out.println("Listening port : " + serverPort
+                //         + "\nWaiting for clients...");
                 socketConnection = serverSocket.accept(); // Accept a connection from a client
-                System.out.println("Accepted client :"
-                        + socketConnection.getRemoteSocketAddress().toString()
-                        + "\n");
+                // System.out.println("Accepted client :"
+                //         + socketConnection.getRemoteSocketAddress().toString()
+                //         + "\n");
                 // Create a runnable task
                 Runnable runnableTask = new QueryRunner(socketConnection);
                 // Submit task for execution
