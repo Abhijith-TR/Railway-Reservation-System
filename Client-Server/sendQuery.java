@@ -12,8 +12,8 @@ import java.util.Scanner;
 class sendQuery implements Runnable {
     /**********************/
     int sockPort = 7008;
-
     /*********************/
+    
     sendQuery() {
         // Red args if any
     }
@@ -34,10 +34,13 @@ class sendQuery implements Runnable {
             InputStreamReader inputStream = new InputStreamReader(socketConnection.getInputStream());
             BufferedReader bufferedInput = new BufferedReader(inputStream);
             PrintWriter printWriter = new PrintWriter(bufferedOutput, true);
+
             File queries = new File(inputfile);
             File output = new File(outputfile);
+            
             FileWriter filewriter = new FileWriter(output);
             Scanner queryScanner = new Scanner(queries);
+            
             String query = "";
             // --------------------------------------------------------------------
 
@@ -51,14 +54,17 @@ class sendQuery implements Runnable {
 
             // Get query responses from the input end of the socket of client
             String result;
+            
             while ((result = bufferedInput.readLine()) != null) {
                 filewriter.write(result + "\n");
             }
+
             // close the buffers and socket
             filewriter.close();
             queryScanner.close();
             printWriter.close();
             socketConnection.close();
+            
         } catch (IOException e1) {
             e1.printStackTrace();
             System.out.println(Thread.currentThread().getName());

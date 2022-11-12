@@ -10,12 +10,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.sql.*;
 
-class QueryRunner implements Runnable {
+class AdminQueryRunner implements Runnable {
 
     // Declare socket for client access
     protected Socket socketConnection;
 
-    public QueryRunner(Socket clientSocket) {
+    public AdminQueryRunner(Socket clientSocket) {
         this.socketConnection = clientSocket;
     }
 
@@ -55,13 +55,11 @@ class QueryRunner implements Runnable {
 
             cstmt.close();
 
-            return String.format("Released train %s with %d AC coaches %d SL coaches on %s", trainNo, acCoaches,
-                    slCoaches, date);
+            return String.format("Released train %s with %d AC coaches %d SL coaches on %s", trainNo, acCoaches, slCoaches, date);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
-            return e.getMessage();
-
+            return e.getSQLState();
         }
     }
 
@@ -88,7 +86,7 @@ class QueryRunner implements Runnable {
 
             adminConn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "admin"
+                "postgres", "2486"
             );
 
             while (!adminQuery.equals("#")) {
@@ -100,7 +98,7 @@ class QueryRunner implements Runnable {
                 slCoaches = Integer.valueOf(params[3]);
                 responseQuery = releaseTrain(adminConn, trainNo, date, acCoaches, slCoaches);
 
-                if (responseQuery.equals("23505")){
+                if (responseQuery.equals("P0001")){
                     responseQuery = "Train already exists on the given date.";
                 } else {
                     responseQuery = String.format("Train: %s added on date: %s.", trainNo, date);
@@ -145,14 +143,19 @@ public class interactiveServer {
 
             // Always-ON server
             while (true) {
-                System.out.println("Listening port : " + serverPort
-                        + "\nWaiting for clients...");
+                System.out.println(
+                    "Listening port : " + serverPort
+                    + "\nWaiting for clients..."
+                );
                 socketConnection = serverSocket.accept(); // Accept a connection from a client
-                System.out.println("Accepted client :"
-                        + socketConnection.getRemoteSocketAddress().toString()
-                        + "\n");
+                System.out.println(
+                    "Accepted client :"
+                    + socketConnection.getRemoteSocketAddress().toString()
+                    + "\n"
+                );
+
                 // Create a runnable task
-                Runnable runnableTask = new QueryRunner(socketConnection);
+                Runnable runnableTask = new AdminQueryRunner(socketConnection);
                 // Submit task for execution
                 executorService.submit(runnableTask);
             }

@@ -4,8 +4,6 @@ import java.util.concurrent.Executors   ;
 import java.util.concurrent.TimeUnit;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException  ;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -25,7 +23,8 @@ class interactive implements Runnable {
             InputStreamReader inputStream = new InputStreamReader(bookSocketConnection.getInputStream());
             BufferedReader bufferedInput = new BufferedReader(inputStream);
             PrintWriter printWriter = new PrintWriter(bufferedOutput, true);
-
+            
+            // Establishing a socket connection to the admin server
             Socket addTrainSocketConnection = new Socket("localhost", releaseTrainPort) ;
             OutputStreamWriter ostream = new OutputStreamWriter(addTrainSocketConnection.getOutputStream());
             BufferedWriter bOutput = new BufferedWriter(ostream);
@@ -58,7 +57,6 @@ class interactive implements Runnable {
                     pWriter.println(query);
                     String result = bInput.readLine();
                     System.out.println(result);
-                        // System.out.println("Hello!");
                 }
                 else if (choice == 2) {
                     System.out.print("Enter the Number of Passengers: ");
@@ -79,7 +77,8 @@ class interactive implements Runnable {
                     query += sc.nextLine();
                     printWriter.println(query);
                     String result = "";
-                    while ((result = bufferedInput.readLine()) != null) {
+                    for (int i=0; i<numberOfPassengers; i++) {
+                        result = bufferedInput.readLine();
                         System.out.println(result);
                     }
                 }
@@ -100,7 +99,7 @@ class interactive implements Runnable {
     }
 }
 
-public class interactive_client
+public class interactiveClient
 {
     public static void main(String args[])throws IOException
     {
@@ -108,6 +107,7 @@ public class interactive_client
         int firstLevelThreads = 1 ;   // Indicate no of users 
         /**************************/
         // Creating a thread pool
+        
         ExecutorService executorService = Executors.newFixedThreadPool(firstLevelThreads);
         
         for(int i = 0; i < firstLevelThreads; i++)

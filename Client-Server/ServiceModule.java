@@ -62,7 +62,7 @@ class QueryRunner implements Runnable {
             String responseQuery = "";
             Connection conn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "admin"
+                "postgres", "2486"
             );
 
             conn.setAutoCommit(true);
@@ -77,7 +77,7 @@ class QueryRunner implements Runnable {
             clientCommand = bufferedInput.readLine();
             while (!clientCommand.equals("#")) {
                 
-                System.out.println("Recieved data <" + clientCommand + "> from client : " + socketConnection.getRemoteSocketAddress().toString());
+                // System.out.println("Recieved data <" + clientCommand + "> from client : " + socketConnection.getRemoteSocketAddress().toString());
                 params = clientCommand.split("\\s+");
                 numberOfPassengers = Integer.valueOf(params[0]);
                 String[] names = new String[numberOfPassengers]; 
@@ -89,14 +89,16 @@ class QueryRunner implements Runnable {
                 date = params[numberOfPassengers+2];
                 preference = params[numberOfPassengers+3];
 
-                // System.out.println(trainNo);
-
+                int count = 0;
                 responseQuery = "40001";
                 while (responseQuery.equals("40001")) {
+                    count++;
+                    if (count > 10){
+                        responseQuery = "Couldn't book tickets... Too many users";
+                    }
                     responseQuery = bookTickets(conn, trainNo, date, preference, names);
                 }
 
-                // Dummy response send to client
                 // Sending data back to the client
                 if (responseQuery.equals("P0001")){
                     responseQuery = "Not enough seats left";
@@ -140,12 +142,12 @@ public class ServiceModule {
 
             // Always-ON server
             while (true) {
-                System.out.println("Listening port : " + serverPort
-                        + "\nWaiting for clients...");
+                // System.out.println("Listening port : " + serverPort
+                //         + "\nWaiting for clients...");
                 socketConnection = serverSocket.accept(); // Accept a connection from a client
-                System.out.println("Accepted client :"
-                        + socketConnection.getRemoteSocketAddress().toString()
-                        + "\n");
+                // System.out.println("Accepted client :"
+                //         + socketConnection.getRemoteSocketAddress().toString()
+                //         + "\n");
                 // Create a runnable task
                 Runnable runnableTask = new QueryRunner(socketConnection);
                 // Submit task for execution
