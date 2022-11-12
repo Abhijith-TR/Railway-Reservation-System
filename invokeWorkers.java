@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 public class invokeWorkers implements Runnable
 {
     /*************************/
-     int secondLevelThreads = 3;
+     int secondLevelThreads = 5;
     /**************************/
     public invokeWorkers()            // Constructor to get arguments from the main thread
     {
@@ -26,7 +26,7 @@ public class invokeWorkers implements Runnable
         s.run();
 
         // Stop further requests to executor service
-        executorService.shutdown()  ;
+        // executorService.shutdown()  ;
         try
         {
             // Wait for 8 sec and then exit the executor service

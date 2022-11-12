@@ -61,6 +61,7 @@ class sendQuery implements Runnable {
             socketConnection.close();
         } catch (IOException e1) {
             e1.printStackTrace();
+            System.out.println(Thread.currentThread().getName());
         }
     }
 }
