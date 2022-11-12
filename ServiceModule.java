@@ -62,7 +62,7 @@ class QueryRunner implements Runnable {
             String responseQuery = "";
             Connection conn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "2486"
+                "postgres", "admin"
             );
 
             conn.setAutoCommit(true);
@@ -77,7 +77,7 @@ class QueryRunner implements Runnable {
             clientCommand = bufferedInput.readLine();
             while (!clientCommand.equals("#")) {
                 
-                // System.out.println("Recieved data <" + clientCommand + "> from client : " + socketConnection.getRemoteSocketAddress().toString());
+                System.out.println("Recieved data <" + clientCommand + "> from client : " + socketConnection.getRemoteSocketAddress().toString());
                 params = clientCommand.split("\\s+");
                 numberOfPassengers = Integer.valueOf(params[0]);
                 String[] names = new String[numberOfPassengers]; 
@@ -140,12 +140,12 @@ public class ServiceModule {
 
             // Always-ON server
             while (true) {
-                // System.out.println("Listening port : " + serverPort
-                //         + "\nWaiting for clients...");
+                System.out.println("Listening port : " + serverPort
+                        + "\nWaiting for clients...");
                 socketConnection = serverSocket.accept(); // Accept a connection from a client
-                // System.out.println("Accepted client :"
-                //         + socketConnection.getRemoteSocketAddress().toString()
-                //         + "\n");
+                System.out.println("Accepted client :"
+                        + socketConnection.getRemoteSocketAddress().toString()
+                        + "\n");
                 // Create a runnable task
                 Runnable runnableTask = new QueryRunner(socketConnection);
                 // Submit task for execution
