@@ -62,7 +62,7 @@ class QueryRunner implements Runnable {
             String responseQuery = "";
             Connection conn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "2486"
+                "postgres", "admin"
             );
 
             conn.setAutoCommit(true);
@@ -81,21 +81,17 @@ class QueryRunner implements Runnable {
                 params = clientCommand.split("\\s+");
                 numberOfPassengers = Integer.valueOf(params[0]);
                 String[] names = new String[numberOfPassengers]; 
-                for (int i=0; i<numberOfPassengers; i++) {
+                for (int i=0; i<numberOfPassengers-1; i++) {
                     names[i] = params[i+1].substring(0, params[i+1].length()-1);
                 }
+                names[numberOfPassengers-1] = params[numberOfPassengers];
 
                 trainNo = params[numberOfPassengers+1];
                 date = params[numberOfPassengers+2];
                 preference = params[numberOfPassengers+3];
 
-                int count = 0;
                 responseQuery = "40001";
                 while (responseQuery.equals("40001")) {
-                    count++;
-                    if (count > 10){
-                        responseQuery = "Couldn't book tickets... Too many users";
-                    }
                     responseQuery = bookTickets(conn, trainNo, date, preference, names);
                 }
 
@@ -127,7 +123,7 @@ public class ServiceModule {
     // Server listens to port
     static int serverPort = 7008;
     // Max no of parallel requests the server can process
-    static int numServerCores = 50 ;
+    static int numServerCores = 5 ;
 
     // ------------ Main----------------------
     public static void main(String[] args) throws IOException {

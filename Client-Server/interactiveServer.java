@@ -19,6 +19,28 @@ class AdminQueryRunner implements Runnable {
         this.socketConnection = clientSocket;
     }
 
+    public static String getTicket(Connection conn, String pnr) {
+        try {
+            conn.beginRequest();
+            CallableStatement cstmt = conn.prepareCall("{call retrieve_ticket(?, ?)}");
+
+            cstmt.setString(1, pnr);
+            cstmt.registerOutParameter(2, java.sql.Types.VARCHAR);
+
+            cstmt.executeUpdate();
+            String tickets = cstmt.getString(2);
+            if (tickets.length() == 0) {
+                tickets = "No such PNR\n#";
+            }
+            
+            cstmt.close();
+            return tickets;
+
+        } catch(SQLException e) {
+            return e.getSQLState();
+        }
+    }
+
     public static String addTrain(Connection conn, String trainNo) {
         try {
             conn.beginRequest();
@@ -55,11 +77,10 @@ class AdminQueryRunner implements Runnable {
 
             cstmt.close();
 
-            return String.format("Released train %s with %d AC coaches %d SL coaches on %s", trainNo, acCoaches, slCoaches, date);
+            return String.format("Train: %s added on date: %s.", trainNo, date);
 
         } catch (SQLException e) {
-
-            return e.getSQLState();
+            return e.getMessage().split("\n  Where")[0];
         }
     }
 
@@ -86,29 +107,35 @@ class AdminQueryRunner implements Runnable {
 
             adminConn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "2486"
+                "postgres", "admin"
             );
 
             while (!adminQuery.equals("#")) {
+                if (adminQuery.contains(" ")) {
+                    params = adminQuery.split("\\s+");
+                    trainNo = params[0];
+                    date = params[1];
+                    acCoaches = Integer.valueOf(params[2]);
+                    slCoaches = Integer.valueOf(params[3]);
+                    responseQuery = releaseTrain(adminConn, trainNo, date, acCoaches, slCoaches);
 
-                params = adminQuery.split("\\s+");
-                trainNo = params[0];
-                date = params[1];
-                acCoaches = Integer.valueOf(params[2]);
-                slCoaches = Integer.valueOf(params[3]);
-                responseQuery = releaseTrain(adminConn, trainNo, date, acCoaches, slCoaches);
+                    // if (responseQuery.equals("P0001")){
+                    //     responseQuery = "Train already exists on the given date.";
+                    // } else {
+                    //     responseQuery = String.format("Train: %s added on date: %s.", trainNo, date);
+                    // }
 
-                if (responseQuery.equals("P0001")){
-                    responseQuery = "Train already exists on the given date.";
-                } else {
-                    responseQuery = String.format("Train: %s added on date: %s.", trainNo, date);
+                    printWriter.println(responseQuery);
+                    // Read next client query
+                    adminQuery = bufferedInput.readLine();
                 }
-
-                printWriter.println(responseQuery);
-                // Read next client query
-                adminQuery = bufferedInput.readLine();
+                else {
+                    responseQuery = getTicket(adminConn, adminQuery);
+                    printWriter.println(responseQuery);
+                    adminQuery = bufferedInput.readLine();
+                }
             }
-            System.out.println("Inserted trains");
+            // System.out.println("Inserted trains");
 
             adminConn.close();
             inputStream.close();

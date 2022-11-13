@@ -35,6 +35,7 @@ class interactive implements Runnable {
             System.out.println("Correctness Testing Program");
             System.out.println("1. Release Trains");
             System.out.println("2. Book Ticket");
+            System.out.println("3. Retrieve Ticket");
             System.out.println("Any other key to exit");
 
             Scanner sc = new Scanner(System.in);
@@ -56,6 +57,9 @@ class interactive implements Runnable {
                     query += sc.nextLine();
                     pWriter.println(query);
                     String result = bInput.readLine();
+                    if (result.length() == 0) {
+                        result = "Please Check the Input";
+                    }
                     System.out.println(result);
                 }
                 else if (choice == 2) {
@@ -79,6 +83,21 @@ class interactive implements Runnable {
                     String result = "";
                     for (int i=0; i<numberOfPassengers; i++) {
                         result = bufferedInput.readLine();
+                        if (result.contains("(") == false) {
+                            System.out.println("Please Check Input Parameters");
+                            break;
+                        }
+                        System.out.println(result);
+                    }
+                }
+                else if (choice == 3) {
+                    System.out.print("Enter the PNR: ");
+                    query = sc.nextLine();
+                    pWriter.println(query);
+                    String result = "";
+                    while (true) {
+                        result = bInput.readLine();
+                        if (result.contains("#")) break;
                         System.out.println(result);
                     }
                 }
@@ -94,7 +113,7 @@ class interactive implements Runnable {
             bookSocketConnection.close();
             addTrainSocketConnection.close();
         } catch(Exception e) {
-
+            System.out.println(e.getMessage());
         }
     }
 }
