@@ -27,11 +27,15 @@ class QueryRunner implements Runnable {
             
             CallableStatement cstmt = conn.prepareCall("{call book_tickets(?, ?, ?, ?, ?)}");
 
-            cstmt.setString(1, trainNo);
-            cstmt.setDate(2, java.sql.Date.valueOf(date));
-            cstmt.setString(3, pref);
-            cstmt.setArray(4, conn.createArrayOf("text", names));
-            cstmt.registerOutParameter(5, java.sql.Types.VARCHAR);
+            try {
+                cstmt.setString(1, trainNo);
+                cstmt.setDate(2, java.sql.Date.valueOf(date));
+                cstmt.setString(3, pref);
+                cstmt.setArray(4, conn.createArrayOf("text", names));
+                cstmt.registerOutParameter(5, java.sql.Types.VARCHAR);
+            }catch (Exception e) {
+                return "Invalid data formatting";
+            }
             
             cstmt.executeUpdate();
             // stmt.executeUpdate("commit;");
@@ -62,7 +66,7 @@ class QueryRunner implements Runnable {
             String responseQuery = "";
             Connection conn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "admin"
+                "postgres", "2486"
             );
 
             conn.setAutoCommit(true);

@@ -37,25 +37,7 @@ class AdminQueryRunner implements Runnable {
             return tickets;
 
         } catch(SQLException e) {
-            return e.getSQLState();
-        }
-    }
-
-    public static String addTrain(Connection conn, String trainNo) {
-        try {
-            conn.beginRequest();
-            CallableStatement cstmt = conn.prepareCall("{call add_train(?)}");
-
-            cstmt.setString(1, trainNo);
-            cstmt.executeUpdate();
-
-            cstmt.close();
-            return String.format("Train: %s added", trainNo);
-
-        } catch (SQLException e) {
-
-            return e.getSQLState();
-
+            return "Invalid PNR Number.\n#";
         }
     }
 
@@ -69,11 +51,15 @@ class AdminQueryRunner implements Runnable {
             conn.beginRequest();
             CallableStatement cstmt = conn.prepareCall("{call release_train(?, ?, ?, ?)}");
 
-            cstmt.setString(1, trainNo);
-            cstmt.setDate(2, Date.valueOf(date));
-            cstmt.setInt(3, acCoaches);
-            cstmt.setInt(4, slCoaches);
-            cstmt.executeUpdate();
+            try {
+                cstmt.setString(1, trainNo);
+                cstmt.setDate(2, Date.valueOf(date));
+                cstmt.setInt(3, acCoaches);
+                cstmt.setInt(4, slCoaches);
+                cstmt.executeUpdate();
+            } catch (Exception e) {
+                return "Invalid formatting";
+            }
 
             cstmt.close();
 
@@ -107,7 +93,7 @@ class AdminQueryRunner implements Runnable {
 
             adminConn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "admin"
+                "postgres", "2486"
             );
 
             while (!adminQuery.equals("#")) {
