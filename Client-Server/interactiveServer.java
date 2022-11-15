@@ -56,17 +56,18 @@ class AdminQueryRunner implements Runnable {
                 cstmt.setDate(2, Date.valueOf(date));
                 cstmt.setInt(3, acCoaches);
                 cstmt.setInt(4, slCoaches);
-                cstmt.executeUpdate();
             } catch (Exception e) {
-                return "Invalid formatting";
+                return "ERROR: Invalid formatting";
             }
+
+            cstmt.executeUpdate();
 
             cstmt.close();
 
             return String.format("Train: %s added on date: %s.", trainNo, date);
 
         } catch (SQLException e) {
-            return e.getMessage().split("\n  Where")[0];
+            return e.getSQLState();
         }
     }
 
@@ -104,12 +105,6 @@ class AdminQueryRunner implements Runnable {
                     acCoaches = Integer.valueOf(params[2]);
                     slCoaches = Integer.valueOf(params[3]);
                     responseQuery = releaseTrain(adminConn, trainNo, date, acCoaches, slCoaches);
-
-                    // if (responseQuery.equals("P0001")){
-                    //     responseQuery = "Train already exists on the given date.";
-                    // } else {
-                    //     responseQuery = String.format("Train: %s added on date: %s.", trainNo, date);
-                    // }
 
                     printWriter.println(responseQuery);
                     // Read next client query

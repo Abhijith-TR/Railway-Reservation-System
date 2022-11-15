@@ -23,7 +23,6 @@ class QueryRunner implements Runnable {
             String[] names
         ) {
         try {
-            // conn.beginRequest();
             
             CallableStatement cstmt = conn.prepareCall("{call book_tickets(?, ?, ?, ?, ?)}");
 
@@ -38,7 +37,6 @@ class QueryRunner implements Runnable {
             }
             
             cstmt.executeUpdate();
-            // stmt.executeUpdate("commit;");
             
             String result = cstmt.getString(5);
 
@@ -46,7 +44,7 @@ class QueryRunner implements Runnable {
             return result;
 
         } catch (SQLException e) {
-            return e.getSQLState();
+            return e.getMessage().split("\n")[0];
         }
     }
 
@@ -82,9 +80,11 @@ class QueryRunner implements Runnable {
             while (!clientCommand.equals("#")) {
                 
                 // System.out.println("Recieved data <" + clientCommand + "> from client : " + socketConnection.getRemoteSocketAddress().toString());
+                
                 params = clientCommand.split("\\s+");
                 numberOfPassengers = Integer.valueOf(params[0]);
-                String[] names = new String[numberOfPassengers]; 
+                String[] names = new String[numberOfPassengers];
+
                 for (int i=0; i<numberOfPassengers-1; i++) {
                     names[i] = params[i+1].substring(0, params[i+1].length()-1);
                 }
@@ -100,6 +100,7 @@ class QueryRunner implements Runnable {
                 }
 
                 // Sending data back to the client
+                System.out.println(responseQuery);
                 if (responseQuery.equals("P0001")){
                     responseQuery = "Not enough seats left";
                 }

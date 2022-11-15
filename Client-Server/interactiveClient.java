@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.io.File;
 
 class interactive implements Runnable {
     int bookTicketPort = 7008 ;
@@ -36,6 +37,7 @@ class interactive implements Runnable {
             System.out.println("1. Release Trains");
             System.out.println("2. Book Ticket");
             System.out.println("3. Retrieve Ticket");
+            System.out.println("4. To add trains from a file");
             System.out.println("Any other key to exit");
 
             Scanner sc = new Scanner(System.in);
@@ -65,12 +67,15 @@ class interactive implements Runnable {
                 else if (choice == 2) {
                     System.out.print("Enter the Number of Passengers: ");
                     query = sc.nextLine();
+
                     int numberOfPassengers = Integer.valueOf(query);
+                    
                     query += " ";
                     for (int cnt = 0; cnt < numberOfPassengers-1; cnt++) {
                         System.out.print("Enter Passenger Name: ");
                         query += sc.nextLine() + ", ";
                     }
+                    
                     System.out.print("Enter Passenger Name: ");
                     query += sc.nextLine() + " ";
                     System.out.print("Enter the Train Number: ");
@@ -81,12 +86,9 @@ class interactive implements Runnable {
                     query += sc.nextLine();
                     printWriter.println(query);
                     String result = "";
+                    
                     for (int i=0; i<numberOfPassengers; i++) {
                         result = bufferedInput.readLine();
-                        if (result.contains("(") == false) {
-                            System.out.println("Please Check Input Parameters");
-                            break;
-                        }
                         System.out.println(result);
                     }
                 }
@@ -95,11 +97,38 @@ class interactive implements Runnable {
                     query = sc.nextLine();
                     pWriter.println(query);
                     String result = "";
+
                     while (true) {
                         result = bInput.readLine();
                         if (result.contains("#")) break;
                         System.out.println(result);
                     }
+                }
+                else if (choice == 4){
+                    System.out.println("Reads file from './Input/Trainschedule.txt'");                    
+                    File queries = new File("./Input/Trainschedule.txt");
+                    if (queries.canRead() == false) {
+                        System.out.println("File not found at './Input/Trainschedule.txt'...");
+                        continue;
+                    }
+                    Scanner queryScanner = new Scanner(queries);
+                    
+                    query = "";
+                    System.out.println("Starting");
+                    // Read input queries and write to the output stream
+                    while (queryScanner.hasNextLine()) {
+                        query = queryScanner.nextLine();
+                        pWriter.println(query);
+                    }
+                    
+                    String result = "";
+            
+                    while ((result = bInput.readLine()) != null) {
+                        System.out.println(result);
+                    }
+
+                    System.out.println("Inserted train/s");
+                    queryScanner.close();
                 }
                 else {
                     break;
