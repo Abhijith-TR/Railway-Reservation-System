@@ -12,10 +12,11 @@ import java.util.Scanner;
 class sendQuery implements Runnable {
     /**********************/
     int sockPort = 7008;
+    String fileName;
     /*********************/
     
-    sendQuery() {
-        // Red args if any
+    sendQuery(String src) {
+        fileName = src;
     }
 
     @Override
@@ -25,9 +26,9 @@ class sendQuery implements Runnable {
             Socket socketConnection = new Socket("localhost", sockPort);
 
             // Files for input queries and responses
-            String inputfile = "../Test/Unknown_Trains/" + Thread.currentThread().getName() + "_input.txt";
+            String inputfile = fileName + "/" + Thread.currentThread().getName() + "_input.txt";
             String outputfile = "./Output/" + Thread.currentThread().getName() + "_output.txt";
-
+            System.out.println(inputfile);
             // -----Initialising the Input & ouput file-streams and buffers-------
             OutputStreamWriter outputStream = new OutputStreamWriter(socketConnection.getOutputStream());
             BufferedWriter bufferedOutput = new BufferedWriter(outputStream);

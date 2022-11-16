@@ -105,8 +105,10 @@ class interactive implements Runnable {
                     }
                 }
                 else if (choice == 4){
-                    System.out.println("Reads file from './Input/Trainschedule.txt'");                    
-                    File queries = new File("../Test/Unknown_Trains/Trainschedule.txt");
+                    // System.out.println("Reads file from './Input/Trainschedule.txt'");   
+                    System.out.print("Enter the File Name: ");
+                    String fileName = sc.nextLine();                 
+                    File queries = new File(fileName);
                     if (queries.canRead() == false) {
                         System.out.println("File not found at './Input/Trainschedule.txt'...");
                         continue;

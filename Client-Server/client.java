@@ -11,12 +11,18 @@ public class client
         int firstLevelThreads = 5;   // Indicate no of users 
         /**************************/
         // Creating a thread pool
-        
         ExecutorService executorService = Executors.newFixedThreadPool(firstLevelThreads);
         
         for(int i = 0; i < firstLevelThreads; i++)
         {
-            Runnable runnableTask = new invokeWorkers();    //  Pass arg, if any to constructor sendQuery(arg)
+            Runnable runnableTask;
+            if (args.length == 1) {
+                runnableTask = new invokeWorkers(args[0]); 
+            }
+            else {
+                runnableTask = new invokeWorkers("./Input");
+            }
+               //  Pass arg, if any to constructor sendQuery(arg)
             executorService.submit(runnableTask) ;
         }
 

@@ -5,11 +5,12 @@ import java.util.concurrent.TimeUnit;
 public class invokeWorkers implements Runnable
 {
     /*************************/
-     int secondLevelThreads = 18;
+     int secondLevelThreads = 5;
+     String fileName;
     /**************************/
-    public invokeWorkers()            // Constructor to get arguments from the main thread
+    public invokeWorkers(String src)            // Constructor to get arguments from the main thread
     {
-       // Send args from main thread
+       fileName = src;
     }
 
     ExecutorService executorService = Executors.newFixedThreadPool(secondLevelThreads) ;
@@ -18,11 +19,11 @@ public class invokeWorkers implements Runnable
     {
         for(int i=0; i < secondLevelThreads ; i++)
         {
-            Runnable runnableTask = new sendQuery()  ;    //  Pass arg, if any to constructor sendQuery(arg)
+            Runnable runnableTask = new sendQuery(fileName)  ;    //  Pass arg, if any to constructor sendQuery(arg)
             executorService.submit(runnableTask) ;
         }
 
-        sendQuery s = new sendQuery();      // Send queries from current thread
+        sendQuery s = new sendQuery(fileName);      // Send queries from current thread
         s.run();
 
         // Stop further requests to executor service
