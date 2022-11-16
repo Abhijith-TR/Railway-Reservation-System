@@ -67,7 +67,7 @@ class AdminQueryRunner implements Runnable {
             return String.format("Train: %s added on date: %s.", trainNo, date);
 
         } catch (SQLException e) {
-            return e.getSQLState();
+            return e.getMessage().split("\n")[0];
         }
     }
 

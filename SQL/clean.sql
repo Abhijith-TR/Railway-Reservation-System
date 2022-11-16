@@ -12,5 +12,5 @@ DROP DATABASE IF EXISTS train_system;
 \i './release_trains.sql'
 \i './book_ticket.sql'
 \i './retrieve_ticket.sql'
-select release_train('04652', '2022-11-01', 999, 999);
-select release_train('22517', '2022-11-01', 999, 999);
+-- select release_train('04652', '2022-11-01', 999, 999);
+-- select release_train('22517', '2022-11-01', 999, 999);

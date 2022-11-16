@@ -44,6 +44,7 @@ class QueryRunner implements Runnable {
             return result;
 
         } catch (SQLException e) {
+            if (e.getSQLState().equals("40001")) return "40001";
             return e.getMessage().split("\n")[0];
         }
     }
@@ -100,10 +101,6 @@ class QueryRunner implements Runnable {
                 }
 
                 // Sending data back to the client
-                System.out.println(responseQuery);
-                if (responseQuery.equals("P0001")){
-                    responseQuery = "Not enough seats left";
-                }
                 printWriter.println(responseQuery);
                 // Read next client query
                 clientCommand = bufferedInput.readLine();

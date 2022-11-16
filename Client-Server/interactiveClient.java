@@ -106,7 +106,7 @@ class interactive implements Runnable {
                 }
                 else if (choice == 4){
                     System.out.println("Reads file from './Input/Trainschedule.txt'");                    
-                    File queries = new File("./Input/Trainschedule.txt");
+                    File queries = new File("../Test/Unknown_Trains/Trainschedule.txt");
                     if (queries.canRead() == false) {
                         System.out.println("File not found at './Input/Trainschedule.txt'...");
                         continue;
@@ -114,7 +114,7 @@ class interactive implements Runnable {
                     Scanner queryScanner = new Scanner(queries);
                     
                     query = "";
-                    System.out.println("Starting");
+
                     // Read input queries and write to the output stream
                     while (queryScanner.hasNextLine()) {
                         query = queryScanner.nextLine();
