@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.io.File;
 
 class interactive implements Runnable {
     int bookTicketPort = 7008 ;
@@ -37,7 +36,6 @@ class interactive implements Runnable {
             System.out.println("1. Release Trains");
             System.out.println("2. Book Ticket");
             System.out.println("3. Retrieve Ticket");
-            System.out.println("4. To add trains from a file");
             System.out.println("Any other key to exit");
 
             Scanner sc = new Scanner(System.in);
@@ -103,34 +101,6 @@ class interactive implements Runnable {
                         if (result.contains("#")) break;
                         System.out.println(result);
                     }
-                }
-                else if (choice == 4){
-                    // System.out.println("Reads file from './Input/Trainschedule.txt'");   
-                    System.out.print("Enter the File Name: ");
-                    String fileName = sc.nextLine();                 
-                    File queries = new File(fileName);
-                    if (queries.canRead() == false) {
-                        System.out.println("File not found at './Input/Trainschedule.txt'...");
-                        continue;
-                    }
-                    Scanner queryScanner = new Scanner(queries);
-                    
-                    query = "";
-
-                    // Read input queries and write to the output stream
-                    while (queryScanner.hasNextLine()) {
-                        query = queryScanner.nextLine();
-                        pWriter.println(query);
-                    }
-                    
-                    String result = "";
-            
-                    while ((result = bInput.readLine()) != null) {
-                        System.out.println(result);
-                    }
-
-                    System.out.println("Inserted train/s");
-                    queryScanner.close();
                 }
                 else {
                     break;

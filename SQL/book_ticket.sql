@@ -14,11 +14,15 @@ CREATE OR REPLACE FUNCTION book_tickets (
     total_seats INTEGER := 0;
     start_seat INTEGER := 0;
     mod INTEGER := 0;
+    pnr TEXT;
+    val INTEGER;
+    other_val INTEGER;
     seat_types INTEGER := 0;
     all_values TEXT := '';
     ac_seat_names TEXT[] := '{ "SU", "LB", "LB", "UB", "UB", "SL" }';
     sl_seat_names TEXT[] := '{ "SU", "LB", "MB", "UB", "LB", "MB", "UB", "SL" }';
     pref_seat_names TEXT[];
+    pref_prefix TEXT;
   BEGIN
     IF preference = 'AC' THEN
       pref_seat_names := ac_seat_names;
@@ -60,22 +64,29 @@ CREATE OR REPLACE FUNCTION book_tickets (
       mod := 24;
     END IF;
 
+    pref_prefix := LEFT(preference, 1);
+    pnr := preference || train_number || '-' || depdate || '-' || start_seat+1;
+
     FOR ind IN 1..arr_len
     LOOP 
+      val := start_seat+ind-1;
+      other_val := val % mod + 1;
       IF all_values <> '' THEN all_values := all_values || ',' || E'\n';
       END IF;
       all_values := all_values || format (
-        '(''%s%s-%s-%s'',''%s-%s'',%L, ''%s'')', 
-        preference, train_number, depdate, start_seat+1,
-        LEFT(preference, 1) || ((start_seat+ind-1) / mod)+1, (start_seat+ind-1) % mod+1, names[ind],
-        pref_seat_names[((start_seat+ind-1) % mod+1) % seat_types + 1]
+        '(''%s'',''%s-%s'',%L, ''%s'')', 
+        pnr,
+        pref_prefix || (val / mod)+1, other_val, names[ind],
+        pref_seat_names[(other_val) % seat_types + 1]
       );
     END LOOP;
 
+    train_number := train_number || '-' || depdate;
+
     EXECUTE format(
       '
-        INSERT INTO "%s-%s" VALUES %s;
-      ', train_number, depdate, all_values 
+        INSERT INTO "%s" VALUES %s;
+      ', train_number, all_values 
     );
     -- RAISE NOTICE '% \n %',names[1], names[2];
     -- RAISE NOTICE 'Booked Ticket, PNR: %', pnr;
