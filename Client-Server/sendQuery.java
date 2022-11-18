@@ -28,7 +28,7 @@ class sendQuery implements Runnable {
             // Files for input queries and responses
             String inputfile = fileName + "/" + Thread.currentThread().getName() + "_input.txt";
             String outputfile = "./Output/" + Thread.currentThread().getName() + "_output.txt";
-            System.out.println(inputfile);
+            // System.out.println(inputfile);
             // -----Initialising the Input & ouput file-streams and buffers-------
             OutputStreamWriter outputStream = new OutputStreamWriter(socketConnection.getOutputStream());
             BufferedWriter bufferedOutput = new BufferedWriter(outputStream);

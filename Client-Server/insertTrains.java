@@ -11,12 +11,12 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.io.File;
 
-class interactive implements Runnable {
+class insertInteractive implements Runnable {
     int bookTicketPort = 7008 ;
     int releaseTrainPort = 7009;
     String fileName;
 
-    interactive(String src) {
+    insertInteractive(String src) {
         fileName = src;
     }
 
@@ -80,7 +80,7 @@ public class insertTrains
         
         for(int i = 0; i < firstLevelThreads; i++)
         {
-            Runnable interactive = new interactive(args[0]);    //  Pass arg, if any to constructor sendQuery(arg)
+            Runnable interactive = new insertInteractive(args[0]);    //  Pass arg, if any to constructor sendQuery(arg)
             executorService.submit(interactive) ;
         }
 

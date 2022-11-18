@@ -57,7 +57,7 @@ class AdminQueryRunner implements Runnable {
                 cstmt.setInt(3, acCoaches);
                 cstmt.setInt(4, slCoaches);
             } catch (Exception e) {
-                return "ERROR: Invalid formatting";
+                return "ERROR: Invalid formatting\n#";
             }
 
             cstmt.executeUpdate();
@@ -94,8 +94,11 @@ class AdminQueryRunner implements Runnable {
 
             adminConn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "admin"
+                "postgres", "2486"
             );
+
+            adminConn.setAutoCommit(true);
+            adminConn.setTransactionIsolation(8);
 
             while (!adminQuery.equals("#")) {
                 if (adminQuery.contains(" ")) {
@@ -113,6 +116,7 @@ class AdminQueryRunner implements Runnable {
                 else {
                     responseQuery = getTicket(adminConn, adminQuery);
                     printWriter.println(responseQuery);
+                    printWriter.println("#");
                     adminQuery = bufferedInput.readLine();
                 }
             }
@@ -126,6 +130,7 @@ class AdminQueryRunner implements Runnable {
             printWriter.close();
             socketConnection.close();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return;
         }
     }
@@ -150,11 +155,11 @@ public class interactiveServer {
             Socket socketConnection = null;
 
             // Always-ON server
+            System.out.println(
+                "Listening port : " + serverPort
+                + "\nWaiting for clients..."
+            );
             while (true) {
-                System.out.println(
-                    "Listening port : " + serverPort
-                    + "\nWaiting for clients..."
-                );
                 socketConnection = serverSocket.accept(); // Accept a connection from a client
                 System.out.println(
                     "Accepted client :"

@@ -65,7 +65,7 @@ class QueryRunner implements Runnable {
             String responseQuery = "";
             Connection conn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "admin"
+                "postgres", "2486"
             );
 
             conn.setAutoCommit(true);
@@ -113,6 +113,7 @@ class QueryRunner implements Runnable {
             printWriter.close();
             socketConnection.close();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return;
         }
     }
@@ -125,7 +126,7 @@ public class ServiceModule {
     // Server listens to port
     static int serverPort = 7008;
     // Max no of parallel requests the server can process
-    static int numServerCores = 5 ;
+    static int numServerCores = 100 ;
 
     // ------------ Main----------------------
     public static void main(String[] args) throws IOException {
@@ -139,9 +140,9 @@ public class ServiceModule {
             Socket socketConnection = null;
 
             // Always-ON server
+            System.out.println("Listening port : " + serverPort
+                    + "\nWaiting for clients...");
             while (true) {
-                // System.out.println("Listening port : " + serverPort
-                //         + "\nWaiting for clients...");
                 socketConnection = serverSocket.accept(); // Accept a connection from a client
                 // System.out.println("Accepted client :"
                 //         + socketConnection.getRemoteSocketAddress().toString()
