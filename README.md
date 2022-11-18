@@ -31,8 +31,13 @@ Requires 3 terminals:
 javac SeviceModule.java; java ServiceModule
 ```
 * To run Client for sending requests:
+Argument can be provided for directory containing input files in proper format
 ```
-javac client.java; java client
+javac client.java; java client [Filename]
 ```
 Please note that this part requires bookings to be present in the database.
-Bookings can be added using the interactive client.
+Bookings can be added using the interactive client or can be added from a file with proper formatting using:
+```
+javac insertTrains.java; java insertTrains <Filename>
+```
+*Adding trains requires interactiveServer to be running*
