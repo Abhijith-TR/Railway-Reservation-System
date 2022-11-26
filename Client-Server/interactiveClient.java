@@ -88,6 +88,7 @@ class interactive implements Runnable {
                     for (int i=0; i<numberOfPassengers; i++) {
                         result = bufferedInput.readLine();
                         System.out.println(result);
+                        if (result.contains("(") == false) break;
                     }
                 }
                 else if (choice == 3) {

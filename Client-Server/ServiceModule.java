@@ -63,9 +63,10 @@ class QueryRunner implements Runnable {
             PrintWriter printWriter = new PrintWriter(bufferedOutput, true);
             String clientCommand = "";
             String responseQuery = "";
+
             Connection conn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "2486"
+                "postgres", "****"
             );
 
             conn.setAutoCommit(true);

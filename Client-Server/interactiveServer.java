@@ -83,8 +83,6 @@ class AdminQueryRunner implements Runnable {
 
             Connection adminConn = null;
     
-            Class.forName("org.postgresql.Driver");
-
             String adminQuery = bufferedInput.readLine();
             String[] params;
             String trainNo = "";
@@ -94,7 +92,7 @@ class AdminQueryRunner implements Runnable {
 
             adminConn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "2486"
+                "postgres", "****"
             );
 
             adminConn.setAutoCommit(true);
