@@ -41,11 +41,11 @@ class QueryRunner implements Runnable {
             String result = cstmt.getString(5);
 
             cstmt.close();
-            return result;
+            return result+"\n";
 
         } catch (SQLException e) {
             if (e.getSQLState().equals("40001")) return "40001";
-            return e.getMessage().split("\n")[0];
+            return e.getMessage().split("\n")[0] + "\n";
         }
     }
 
@@ -63,9 +63,10 @@ class QueryRunner implements Runnable {
             PrintWriter printWriter = new PrintWriter(bufferedOutput, true);
             String clientCommand = "";
             String responseQuery = "";
+
             Connection conn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/train_system",
-                "postgres", "2486"
+                "postgres", "admin"
             );
 
             conn.setAutoCommit(true);

@@ -1,3 +1,4 @@
 Client-Server/*.class
 Test
+Client-Server/TestCases
 Client-Server/Output/*.txt

@@ -12,10 +12,14 @@ import java.util.Scanner;
 class sendQuery implements Runnable {
     /**********************/
     int sockPort = 7008;
+    int firstLevel;
+    int secondLevel;
     String fileName;
     /*********************/
     
-    sendQuery(String src) {
+    sendQuery(String src, int firstLevel, int secondLevel) {
+        this.firstLevel = firstLevel;
+        this.secondLevel = secondLevel;
         fileName = src;
     }
 
@@ -26,8 +30,9 @@ class sendQuery implements Runnable {
             Socket socketConnection = new Socket("localhost", sockPort);
 
             // Files for input queries and responses
-            String inputfile = fileName + "/" + Thread.currentThread().getName() + "_input.txt";
-            String outputfile = "./Output/" + Thread.currentThread().getName() + "_output.txt";
+            String otherFileName = "pool-" + firstLevel + "-thread-" + secondLevel;
+            String inputfile = fileName + "/" + otherFileName + "_input.txt";
+            String outputfile = "./Output/" + otherFileName + "_output.txt";
             // System.out.println(inputfile);
             // -----Initialising the Input & ouput file-streams and buffers-------
             OutputStreamWriter outputStream = new OutputStreamWriter(socketConnection.getOutputStream());

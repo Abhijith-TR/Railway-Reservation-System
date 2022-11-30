@@ -43,11 +43,11 @@ CREATE OR REPLACE FUNCTION book_tickets (
 
     IF num_left IS NULL THEN
       result := 'No such train: ' || train_number; 
-      RAISE EXCEPTION 'No train: %s on date: %s', train_number, depdate;
+      RAISE EXCEPTION 'No train: % on date: %', train_number, depdate;
 
     ELSIF num_left < arr_len THEN      
       result := 'Failed not enough seats'; 
-      RAISE EXCEPTION 'Not enough seats left in train: %s-%s on: %s', train_number, preference, depdate;
+      RAISE EXCEPTION 'Not enough seats left in train: %-% on: %', train_number, preference, depdate;
 
     ELSE 
 

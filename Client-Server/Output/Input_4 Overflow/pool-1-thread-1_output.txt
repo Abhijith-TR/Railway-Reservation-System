@@ -1,0 +1,6 @@
+ERROR: Not enough seats left in train: 1686-SL on: 2023-04-04
+
+ERROR: Not enough seats left in train: 1686-SL on: 2023-04-04
+
+ERROR: Not enough seats left in train: 1686-SL on: 2023-04-04
+

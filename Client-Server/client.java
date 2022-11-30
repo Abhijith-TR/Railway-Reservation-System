@@ -8,7 +8,7 @@ public class client
     public static void main(String args[])throws IOException
     {
         /**************************/
-        int firstLevelThreads = 5;   // Indicate no of users 
+        int firstLevelThreads = 2;   // Indicate no of users 
         /**************************/
         // Creating a thread pool
         ExecutorService executorService = Executors.newFixedThreadPool(firstLevelThreads);
@@ -17,10 +17,10 @@ public class client
         {
             Runnable runnableTask;
             if (args.length == 1) {
-                runnableTask = new invokeWorkers(args[0]); 
+                runnableTask = new invokeWorkers(args[0], i+1); 
             }
             else {
-                runnableTask = new invokeWorkers("./Input");
+                runnableTask = new invokeWorkers("./Input", i+1);
             }
                //  Pass arg, if any to constructor sendQuery(arg)
             executorService.submit(runnableTask) ;
